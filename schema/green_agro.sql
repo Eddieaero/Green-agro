@@ -17,9 +17,9 @@ CREATE TABLE field (
   name VARCHAR(255),
   description TEXT,
   latitude FLOAT,
-  longitude FLOAT
+  longitude FLOAT,
   owner INT,
-  FOREIGN KEY (owner) REFERENCES user(id),
+  FOREIGN KEY (owner) REFERENCES user(id)
 );
 
 CREATE TABLE crop_field (
@@ -40,5 +40,5 @@ CREATE TABLE crop_data (
   rainfall FLOAT,
   soil_moisture FLOAT,
   pest_infestation_level FLOAT,
-  disease_incidence_level FLOAT, 
+  disease_incidence_level FLOAT
 );
