@@ -1,16 +1,13 @@
 <?php
-// connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "password";
-$dbname = "greenagro";
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+include "db/dbconfig.php";
+session_start();
+?>
 
-// check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+<!-- page content -->
 
+
+<?php 
+// process registration
 // process form data
 $username = mysqli_real_escape_string($conn, $_POST['username']);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
@@ -26,6 +23,4 @@ if (mysqli_query($conn, $sql)) {
   echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
-// close database connection
-mysqli_close($conn);
 ?>
