@@ -1,8 +1,7 @@
 CREATE TABLE user (
   id INT PRIMARY KEY,
   username VARCHAR(255),
-  field_id INT,
-  FOREIGN KEY (field_id) REFERENCES field(id)
+  password TEXT
 );
 
 CREATE TABLE crop (
@@ -17,6 +16,8 @@ CREATE TABLE field (
   description TEXT,
   latitude FLOAT,
   longitude FLOAT
+  owner INT,
+  FOREIGN KEY (owner) REFERENCES user(id),
 );
 
 CREATE TABLE crop_field (
@@ -37,4 +38,5 @@ CREATE TABLE crop_data (
   rainfall FLOAT,
   soil_moisture FLOAT,
   pest_infestation_level FLOAT,
-  disease_incidence_level
+  disease_incidence_level FLOAT
+)
