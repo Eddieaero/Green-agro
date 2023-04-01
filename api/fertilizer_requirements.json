@@ -1,0 +1,65 @@
+{
+    "fertilizers": [
+      {
+        "name": "Nitrogen Fertilizer",
+        "soilCondition": [
+          {
+            "property": "Nitrogen Content",
+            "condition": "Too Low"
+          }
+        ],
+        "applicationRate": "1-2 pounds per 100 square feet"
+      },
+      {
+        "name": "Phosphorus Fertilizer",
+        "soilCondition": [
+          {
+            "property": "Phosphorus Content",
+            "condition": "Too Low"
+          }
+        ],
+        "applicationRate": "2-3 pounds per 100 square feet"
+      },
+      {
+        "name": "Potassium Fertilizer",
+        "soilCondition": [
+          {
+            "property": "Potassium Content",
+            "condition": "Too Low"
+          }
+        ],
+        "applicationRate": "2-3 pounds per 100 square feet"
+      },
+      {
+        "name": "Lime",
+        "soilCondition": [
+          {
+            "property": "pH Level",
+            "condition": "Too Low"
+          }
+        ],
+        "applicationRate": "50-100 pounds per 1000 square feet"
+      },
+      {
+        "name": "Sulfur",
+        "soilCondition": [
+          {
+            "property": "pH Level",
+            "condition": "Too High"
+          }
+        ],
+        "applicationRate": "1-2 pounds per 100 square feet"
+      },
+      {
+        "name": "Compost",
+        "soilCondition": [
+          {
+            "property": "Organic Matter Content",
+            "condition": "Too Low"
+          }
+        ],
+        "applicationRate": "1-2 inches spread evenly over soil surface"
+      }
+    ]
+  }
+  
