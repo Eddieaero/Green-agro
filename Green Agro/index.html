@@ -10,7 +10,7 @@
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
-
+    <script src="sidenav.js"></script>
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
@@ -31,6 +31,15 @@
 
 <body>
     <!-- Topbar Start -->
+    <button  class="nav-item nav-link" > <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+      </div>
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    </button>
     <div class="container-fluid px-5 d-none d-lg-block">
         <div class="row gx-5 py-3 align-items-center">
             <div class="col-lg-3">
