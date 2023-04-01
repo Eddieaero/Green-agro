@@ -110,6 +110,13 @@
     }
 }
 
+#logo{
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    margin-left: 20%;
+}
+
 .bg-vegetable {
     background: linear-gradient(rgba(52, 173, 84, .2), rgba(52, 173, 84, .2)), url(../img/vegetable.png) bottom right no-repeat;
     background-size: contain;
