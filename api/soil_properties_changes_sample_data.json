@@ -1,0 +1,30 @@
+{
+    "Soil moisture": {
+        "factor": "Soil moisture",
+        "values": [50, 20, 60, 31, 52, 22, 40]
+    },
+    "Soil temperature": {
+        "factor": "Soil temperature",
+        "values": [20, 30, 25, 22, 27, 28, 24]
+    },
+    "pH level": {
+        "factor": "pH level",
+        "values": [6.5, 6.2, 6.7, 6.1, 6.8, 6.5, 6.3]
+    },
+    "Nitrogen content": {
+        "factor": "Nitrogen content",
+        "values": [120, 100, 110, 130, 140, 125, 115]
+    },
+    "Phosphorus content": {
+        "factor": "Phosphorus content",
+        "values": [40, 35, 42, 38, 45, 42, 37]
+    },
+    "Potassium content": {
+        "factor": "Potassium content",
+        "values": [200, 190, 205, 198, 210, 202, 195]
+    },
+    "Organic matter content": {
+        "factor": "Organic matter content",
+        "values": [2.5, 2.3, 2.8, 2.4, 2.9, 2.6, 2.2]
+    }
+}
