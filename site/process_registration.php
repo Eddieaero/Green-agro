@@ -9,8 +9,9 @@
     $sql = "INSERT INTO user (id, username, password) VALUES ('$id', '$username', '$password')";
     if (mysqli_query($conn, $sql)) {
         $_SESSION['username'] = $user['username'];
+        $_SESSION['id'] = $id;
         // Redirect to the home page
-        header('Location: /login.php');
+        header('Location: /survey.php');
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }

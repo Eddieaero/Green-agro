@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($user->num_rows != 0){
         $user = $user->fetch_assoc();
         // Set the session variables
+        $_SESSION['id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['field'] = $user['field'];
         // Redirect to the home page
