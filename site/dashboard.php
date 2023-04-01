@@ -236,50 +236,104 @@
             <div class="card shadow-0">
               <div class="card-body p-0">
                 <h2 class="h3 fw-normal">To do List</h2>
-                <p class="text-sm text-muted">Suggested Actions.</p>
                 <form>
+                  <h5>Actions to take based on soil changes:</h5>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list1">
-                    <label class="form-check-label text-sm" for="list1">Similique sunt in culpa qui officia</label>
+                    <label class="form-check-label text-sm" for="list1">Soil pH is too low, add lime to raise soil pH.</label>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list2">
-                    <label class="form-check-label text-sm" for="list2">Ed ut perspiciatis unde omnis iste</label>
+                    <label class="form-check-label text-sm" for="list2">Soil pH is too high, add sulfur to lower soil pH.</label>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list3">
-                    <label class="form-check-label text-sm" for="list3">At vero eos et accusamus et iusto </label>
+                    <label class="form-check-label text-sm" for="list3">Nitrogen content is too low, add nitrogen-rich fertilizers to improve plant growth.</label>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list4">
-                    <label class="form-check-label text-sm" for="list4">Explicabo Nemo ipsam voluptatem</label>
+                    <label class="form-check-label text-sm" for="list4">Nitrogen content is too high, reduce the use of nitrogen fertilizers or switch to using organic fertilizers.</label>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list5">
-                    <label class="form-check-label text-sm" for="list5">Similique sunt in culpa qui officia</label>
+                    <label class="form-check-label text-sm" for="list5">Organic matter content is too low, consider adding compost or other organic matter to the soil to improve soil structure and fertility.</label>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list6">
-                    <label class="form-check-label text-sm" for="list6">At vero eos et accusamus et iusto</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="list7">
-                    <label class="form-check-label text-sm" for="list7">Similique sunt in culpa qui officia</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="list8">
-                    <label class="form-check-label text-sm" for="list8">Ed ut perspiciatis unde omnis iste</label>
+                    <label class="form-check-label text-sm" for="list6">Organic matter content is too high, consider reducing the amount of organic matter added or planting crops that are less tolerant of high organic matter levels.</label>
                   </div>
                 </form>
+                <!-- for demonstration -->
+
+
               </div>
             </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+
+            <div class="card green-card">
+              <div class="card-header">
+                Soil Moisture
+              </div>
+              <div class="card-body">
+                <p>If soil moisture is too low, consider implementing irrigation or adjusting the irrigation schedule to ensure crops receive enough water.</p>
+                <p>If soil moisture is too high, take measures to improve drainage, such as installing drainage tiles or adjusting the slope of the land.</p>
+              </div>
+            </div>
+            <div class="card green-card">
+              <div class="card-header">
+                Soil Temperature
+              </div>
+              <div class="card-body">
+                <p>If soil temperature is too low, consider planting crops that are better suited to cooler temperatures or using techniques like mulching or row covers to retain heat.</p>
+                <p>If soil temperature is too high, consider planting crops that are more heat-tolerant or using techniques like shading or misting to cool the soil.</p>
+              </div>
+            </div>
+            <div class="card green-card">
+              <div class="card-header">
+                pH Level
+              </div>
+              <div class="card-body">
+                <p>If the soil pH is too low, consider adding lime or other soil amendments to raise the pH level and make the soil more alkaline.</p>
+                <p>If the soil pH is too high, consider adding sulfur or other soil amendments to lower the pH level and make the soil more acidic.</p>
+              </div>
+            </div>
+            <div class="card green-card">
+              <div class="card-header">
+                Nitrogen Content
+              </div>
+              <div class="card-body">
+                <p>If the nitrogen content is too low, consider applying nitrogen fertilizers or planting cover crops that fix nitrogen in the soil.</p>
+                <p>If the nitrogen content is too high, consider reducing the amount of nitrogen fertilizer applied or planting crops that are less dependent on nitrogen.</p>
+              </div>
+            </div>
+            <div class="card green-card">
+              <div class="card-header">
+                Phosphorus Content
+              </div>
+              <div class="card-body">
+                <p>If the phosphorus content is too low, consider applying phosphorus fertilizers or planting cover crops that accumulate phosphorus in the soil.</p>
+                <p>If the phosphorus content is too high, consider reducing the amount of phosphorus fertilizer applied or planting crops that are less dependent on phosphorus.</p>
+              </div>
+            </div>
+            <div class="card green-card">
+              <div class="card-header">
+                Potassium Content
+              </div>
+              <div class="card-body">
+                <p>If the potassium content is too low, consider applying potassium fertilizers or planting cover crops that accumulate potassium in the soil.</p>
+                <p>If the potassium content is too high, consider reducing the amount of potassium fertilizer applied or planting crops that are less dependent on potassium.</p>
+              </div>
+            </div>
+
           </div>
 
         </div>
       </div>
     </section>
-   
-    
+
+
   </div>
   <!-- JavaScript files-->
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -314,10 +368,11 @@
     // pls don't forget to change to your domain :)
     injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
   </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-  
+
   <!-- <script>
     var brandPrimary = "#33b35a";
     var PIECHART = document.getElementById("pieChart");
@@ -334,6 +389,30 @@
       },
     });
   </script> -->
+  <script>
+    $(document).ready(function() {
+      $("#lineCahrt").click(function() {
+        $(".form-check").toggle(); // toggle visibility of all form-check elements
+        $(".form-check:hidden").slice(2).show(); // show only the first 2 hidden form-check elements
+      });
+
+      // card -playlist
+      var cards = $(".green-card");
+      var currentCard = 0;
+
+      function nextCard() {
+        cards.removeClass("active");
+        cards.eq(currentCard).addClass("active");
+        currentCard = (currentCard + 1) % cards.length;
+      }
+
+      // Show first card
+      cards.eq(currentCard).addClass("active");
+
+      // Set interval to change card every 3 seconds
+      setInterval(nextCard, 3000);
+    });
+  </script>
 
 </body>
 
