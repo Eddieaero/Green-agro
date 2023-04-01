@@ -7,17 +7,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Look up the user's credentials in the database
-    $user =  $conn->query("SELECT * FROM user WHERE username = '$username' and password='$password'")->fetch_object();
-    if($user){
+    $user =  $conn->query("SELECT * FROM user WHERE username = '$username' and password='$password'");
+    if($user->num_rows != 0){
+        $user = $user->fetch_assoc();
         // Set the session variables
         $_SESSION['username'] = $user['username'];
         $_SESSION['field'] = $user['field'];
         // Redirect to the home page
-        header('Location: index.php');
+        header('Location: dashboard.php');
     }
     else{
         // Redirect to the login page
-        header('Location: login.php');
+        header('Location: login.php?error=1');
     }
 }
 ?>

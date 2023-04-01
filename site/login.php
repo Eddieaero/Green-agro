@@ -92,17 +92,17 @@
         <div class="row">
             <div class="col-md-4 offset-md-4 mt-5">
                 <h1 class="text-center mb-4">Sign In</h1>
-                <form>
+                <form method="post" action="process_login.php">
+                    <?php if (isset($_GET['error'])){echo "<button class='btn btn-sm text-danger'>Invalid Credentials </button>";}?>
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" />
+                        <input type="text" class="form-control" id="username" name="username"/>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" />
+                        <input type="password" class="form-control" id="password" name="password" />
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                    <label>Don't have an account?</label>
                     <div class="nav-link btn-link">
                         <a class="nav-link btn-link" href="register.html">Register here</a>
                     </div>
@@ -139,22 +139,3 @@
 </body>
 
 </html>
-
-<?php
-// process registration
-// process form data
-$username = mysqli_real_escape_string($conn, $_POST['username']);
-$password = mysqli_real_escape_string($conn, $_POST['password']);
-
-// hash password
-$hashed_password = $password;
-
-// insert user data into database
-$sql = "INSERT INTO user (username, password) VALUES ('$username', '$hashed_password')";
-if (mysqli_query($conn, $sql)) {
-    echo "User registered successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-?>
