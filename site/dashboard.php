@@ -39,22 +39,22 @@
       </div>
       <!-- Sidebar Navigation Menus--><span class="text-uppercase text-gray-500 text-sm fw-bold letter-spacing-0 mx-lg-2 heading">Main</span>
       <ul class="list-unstyled">
-        <li class="sidebar-item"><a class="sidebar-link" href="index.html">
+        <li class="sidebar-item"><a class="sidebar-link" href="dashboard.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#real-estate-1"> </use>
             </svg>Land </a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="forms.html">
+        <li class="sidebar-item"><a class="sidebar-link" href="weather.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#survey-1"> </use>
-            </svg>Forms </a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="charts.html">
+            </svg>Weather </a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
-            </svg>Charts </a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="tables.html">
+            </svg>Soil Management </a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="crop_monitoring.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#portfolio-grid-1"> </use>
-            </svg>Tables </a></li>
+            </svg>Crop Monitoring </a></li>
       </ul>
     </div>
   </nav>
@@ -272,7 +272,7 @@
 
           <div class="col-lg-3 col-md-6">
 
-            <div class="card green-card">
+            <div class="card green-card-1">
               <div class="card-header">
                 Soil Moisture
               </div>
@@ -397,20 +397,22 @@
       });
 
       // card -playlist
-      var cards = $(".green-card");
-      var currentCard = 0;
+      // var cards = $(".green-card");
+      // var currentCard = 0;
 
-      function nextCard() {
-        cards.removeClass("active");
-        cards.eq(currentCard).addClass("active");
-        currentCard = (currentCard + 1) % cards.length;
-      }
+      // function nextCard() {
+      //   cards.removeClass("active");
+      //   cards.eq(currentCard).addClass("active");
+      //   currentCard = (currentCard + 1) % cards.length;
+      // }
 
-      // Show first card
-      cards.eq(currentCard).addClass("active");
+      // // Show first card
+      // cards.eq(currentCard).addClass("active");
 
-      // Set interval to change card every 3 seconds
-      setInterval(nextCard, 3000);
+      // // Set interval to change card every 3 seconds
+      // setInterval(nextCard, 3000);
+
+      $(".green-card").hide();
     });
   </script>
 
