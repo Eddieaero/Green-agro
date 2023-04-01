@@ -63,15 +63,19 @@ include "db/dbconfig.php";
 
 
     <!-- map customization -->
-    <form method="post" name="place" id="place"><input type="text" name="lat" id="lat"><input type="text" name="lng" id="lng"></form>
-    <input type="submit" value="set field location" class="btn btn-info btn-lg " name="place">
+    <form method="post" action="process_field_map.php" name="place" id="place"><input type="text" name="lat" id="lat"><input type="text" name="lng" id="lng"><input type="submit" value="set field location" class="btn btn-success btn-sm " name="place" id="submit"></form>
+
     <style>
         #map {
             width: 100%;
             height: 700px;
         }
-        #place{
-            display: none;
+
+        #place {
+            display: flex;
+            position: fixed;
+            bottom: 5px;
+            left: 30px;
         }
     </style>
 
@@ -87,26 +91,43 @@ include "db/dbconfig.php";
             zoom: 9,
         });
 
+        // Change the cursor type to "pointer" when hovering over the map
+        map.on('mouseenter', function() {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change the cursor type back to the default when leaving the map
+        map.on('mouseleave', function() {
+            map.getCanvas().style.cursor = '';
+        });
+
+        // Add a marker to indicate the user's current location on the map
+        var marker = new mapboxgl.Marker();
+
         // Get the user's current location using the Geolocation API
         navigator.geolocation.getCurrentPosition(function(position) {
             // Center the map on the user's current location
             map.setCenter([position.coords.longitude, position.coords.latitude]);
 
-            // Add a marker to indicate the user's current location on the map
-            new mapboxgl.Marker()
-                .setLngLat([position.coords.longitude, position.coords.latitude])
-                .addTo(map);
+            // Set the marker at the user's current location
+            marker.setLngLat([position.coords.longitude, position.coords.latitude]).addTo(map);
         });
 
+        // Move the marker to the clicked point and update the input fields
         map.on('click', function(e) {
-            // Log the latitude and longitude of the clicked point
-            console.log('Latitude: ' + e.lngLat.lat + ', Longitude: ' + e.lngLat.lng);
+            // Move the marker to the clicked point
+            marker.setLngLat([e.lngLat.lng, e.lngLat.lat]);
+
+            // Update the input fields with the clicked point's latitude and longitude
             document.getElementById("lat").value = e.lngLat.lat;
             document.getElementById("lng").value = e.lngLat.lng;
         });
     </script>
 
-    
+    <?php // recover crops data;
+    $_SESSION['crops'] = $_POST['crops']
+    ?>
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -119,42 +140,5 @@ include "db/dbconfig.php";
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
-<?php
-$crops = $_POST['crops'];
-$crops = explode(",", $_POST['crops']);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Process the form data
-    $lat = $_POST['lat'];
-    $lng = $_POST['lng'];
-
-    // create new field data
-    $field_id = rand(890, 5000);
-    $name = "Field_". rand(400,800);
-    $desc = "Field created at: " . date("Y-m-d H:i:s");
-    $owner = $_SESSION['id'];
-
-    $field_query = "INSERT INTO fields (id, name, description, owner, lat, lng) VALUES ('$field_id', '$name', '$desc', '$owner', '$lat', '$lng')";
-    $field_result = mysqli_query($db, $field_query);
-
-    // for each crop get time till harvest
-    foreach ($crops as $crop) {
-        $crop_query = "SELECT * FROM crops WHERE id = '$crop'";
-        $crop_result = mysqli_query($db, $crop_query);
-        $crop_row = mysqli_fetch_assoc($crop_result);
-        $time = $crop_row['days_to_harvest'];
-
-        // create new crop data
-        $crop_id = rand(890, 5000);
-        $field_id = $crop_row['name'];
-        $crop_desc = $;
-        $crop_owner = $_SESSION['id'];
-        $crop_field = $field_id;
-        $crop_time = date('Y-m-d H:i:s', strtotime("+$time days"));
-
-        $crop_query = "INSERT INTO crops (id, name, description, owner, field, time) VALUES ('$crop_id', '$crop_name', '$crop_desc', '$crop_owner', '$crop_field', '$crop_time')";
-        $crop_result = mysqli_query($db, $crop_query);
-    }   
-}
-?>
 </html>
