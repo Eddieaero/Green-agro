@@ -1,3 +1,5 @@
+CREATE DATABASE greenagro;
+
 CREATE TABLE user (
   id INT PRIMARY KEY,
   username VARCHAR(255),
