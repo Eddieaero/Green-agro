@@ -40,5 +40,5 @@ CREATE TABLE crop_data (
   rainfall FLOAT,
   soil_moisture FLOAT,
   pest_infestation_level FLOAT,
-  disease_incidence_level FLOAT
+  disease_incidence_level FLOAT, 
 );
