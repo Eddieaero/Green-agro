@@ -1,0 +1,64 @@
+{
+    "Maize": {
+      "pH_level": 5.5-7.5,
+      "nutrient_content": "High in nitrogen, phosphorus, and potassium",
+      "organic_matter": "At least 3%",
+      "soil_texture": "Sandy loam to clay loam",
+      "soil_moisture": "Optimal moisture content is 25-30%"
+    },
+    "Rice": {
+      "pH_level": 5.0-7.0,
+      "nutrient_content": "High in nitrogen and phosphorus",
+      "organic_matter": "At least 2%",
+      "soil_texture": "Clayey loam",
+      "soil_moisture": "Optimal moisture content is 80-90%"
+    },
+    "Cassava": {
+      "pH_level": 5.5-6.5,
+      "nutrient_content": "Low in nitrogen, high in potassium",
+      "organic_matter": "At least 2%",
+      "soil_texture": "Sandy loam to clay loam",
+      "soil_moisture": "Optimal moisture content is 60-70%"
+    },
+    "Beans": {
+      "pH_level": 6.0-7.0,
+      "nutrient_content": "High in nitrogen and phosphorus",
+      "organic_matter": "At least 2%",
+      "soil_texture": "Sandy loam to clay loam",
+      "soil_moisture": "Optimal moisture content is 50-60%"
+    },
+    "Peanuts": {
+      "pH_level": 5.5-7.0,
+      "nutrient_content": "Low in nitrogen, high in phosphorus",
+      "organic_matter": "At least 2%",
+      "soil_texture": "Sandy loam to clay loam",
+      "soil_moisture": "Optimal moisture content is 50-60%"
+    },
+    "Sweet potatoes": {
+      "pH_level": 5.0-6.5,
+      "nutrient_content": "High in phosphorus and potassium",
+      "organic_matter": "At least 2%",
+      "soil_texture": "Sandy loam to clay loam",
+      "soil_moisture": "Optimal moisture content is 70-80%"
+    },
+    "Sorghum": {
+      "pH_level": 5.5-7.0,
+      "nutrient_content": "High in nitrogen, phosphorus, and potassium",
+      "organic_matter": "At least 2%",
+      "soil_texture": "Sandy loam to clay loam",
+      "soil_moisture": "Optimal moisture content is 50-60%"
+    },
+    "Cotton": {
+      "pH_level": 5.5-7.0,
+      "nutrient_content": "High in nitrogen and potassium",
+      "organic_matter": "At least 2%",
+      "soil_texture": "Sandy loam to clay loam",
+      "soil_moisture": "Optimal moisture content is 50-60%"
+    },
+    "Coffee": {
+      "pH_level": 5.0-6.5,
+      "nutrient_content": "High in phosphorus and potassium",
+      "organic_matter": "At least 2%",
+      "soil_texture": "Sandy loam to clay loam"
+    }
+}  

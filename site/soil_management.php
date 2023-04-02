@@ -1,4 +1,94 @@
-<?php include('db/dbconfig.php') ?>
+<?php include('db/dbconfig.php');
+
+function generateRandomSoilConditions()
+{
+  $pH_level = mt_rand(60, 70) / 10;  // random float between 6.0 and 7.0
+  $nutrient_content = mt_rand(80, 120);
+  $organic_matter = mt_rand(20, 40) / 10;  // random float between 2.0 and 4.0
+  $soil_texture_options = array("clayey", "sandy", "loamy");
+  $soil_texture = $soil_texture_options[array_rand($soil_texture_options)];
+  $soil_moisture = mt_rand(18, 30);  // random integer between 18 and 30
+  $soil_temp = mt_rand(15, 25);  // random integer between 15 and 25
+
+  return array(
+    "pH_level" => $pH_level,
+    "nutrient_content" => $nutrient_content,
+    "organic_matter" => $organic_matter,
+    "soil_texture" => $soil_texture,
+    "soil_moisture" => $soil_moisture,
+    "soil_temp" => $soil_temp
+  );
+}
+
+function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
+{
+  $suggestions = '';
+
+  // Soil moisture suggestions
+  if ($soilMoisture < 20) {
+    $suggestions .= "Consider implementing irrigation or adjusting the irrigation schedule to ensure crops receive enough water. ";
+  } elseif ($soilMoisture > 80) {
+    $suggestions .= "Take measures to improve drainage, such as installing drainage tiles or adjusting the slope of the land. ";
+  }
+
+  // Soil temperature suggestions
+  if ($soilTemperature < 15) {
+    $suggestions .= "Consider planting crops that are better suited to cooler temperatures or using techniques like mulching or row covers to retain heat. ";
+  } elseif ($soilTemperature > 30) {
+    $suggestions .= "Consider planting crops that are more heat-tolerant or using techniques like shading or misting to cool the soil. ";
+  }
+
+  // Add specific suggestions based on the plant name
+  switch ($plantName) {
+    case 'Tomato':
+      $suggestions .= "Tomatoes prefer slightly acidic soil with a pH between 6.0 and 6.8. Consider adding compost or manure to the soil to improve fertility. ";
+      break;
+    case 'Lettuce':
+      $suggestions .= "Lettuce prefers consistently moist soil. Consider using drip irrigation or mulching to retain moisture. ";
+      break;
+    case 'Carrot':
+      $suggestions .= "Carrots prefer loose, well-drained soil. Consider adding sand or perlite to improve soil structure. ";
+      break;
+    case 'Maize':
+      $suggestions .= "Maize prefers well-drained soil with a pH between 5.5 and 7.5. Consider adding nitrogen-rich fertilizers for optimum growth. ";
+      break;
+    case 'Rice':
+      $suggestions .= "Rice prefers moist, well-drained soil with a pH between 5.5 and 6.5. Consider using flooded irrigation or planting in low-lying areas. ";
+      break;
+    case 'Cassava':
+      $suggestions .= "Cassava prefers well-drained soil with a pH between 4.5 and 7.0. Consider adding organic matter to improve soil fertility. ";
+      break;
+    case 'Beans':
+      $suggestions .= "Beans prefer well-drained soil with a pH between 6.0 and 7.5. Consider adding phosphorus-rich fertilizers for optimum growth. ";
+      break;
+    case 'Peanuts':
+      $suggestions .= "Peanuts prefer well-drained soil with a pH between 5.9 and 7.0. Consider adding potassium-rich fertilizers for optimum growth. ";
+      break;
+    case 'Sweet potatoes':
+      $suggestions .= "Sweet potatoes prefer well-drained, sandy soil with a pH between 5.0 and 6.5. Consider adding nitrogen-rich fertilizers for optimum growth. ";
+      break;
+    case 'Sorghum':
+      $suggestions .= "Sorghum prefers well-drained soil with a pH between 5.5 and 7.5. Consider adding nitrogen-rich fertilizers for optimum growth. ";
+      break;
+    case 'Cotton':
+      $suggestions .= "Cotton prefers well-drained soil with a pH between 5.5 and 7.5. Consider adding nitrogen-rich fertilizers for optimum growth. ";
+      break;
+    case 'Coffee':
+      $suggestions .= "Coffee prefers well-drained, slightly acidic soil with a pH between 6.0 and 6.5. Consider adding organic matter to improve soil fertility. ";
+      break;
+    case 'Tea':
+      $suggestions .= "Tea prefers well-drained, slightly acidic soil with a pH between 4.5 and 5.5. Consider adding nitrogen-rich fertilizers for optimum growth. ";
+      break;
+    default:
+      $suggestions .= "No specific soil management suggestions available for this plant. ";
+  }
+
+
+  return $suggestions;
+}
+
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -21,6 +111,10 @@
   <link rel="stylesheet" href="css/custom.css">
   <!-- Favicon-->
   <link rel="shortcut icon" href="img/favicon.ico">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    var brandPrimary = "#33b35a";
+  </script>
 </head>
 
 <body>
@@ -52,10 +146,10 @@
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
             </svg>Soil Management </a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="crop_monitoring.php">
+        <li class="sidebar-item"><a class="sidebar-link" href="crop_survey.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#portfolio-grid-1"> </use>
-            </svg>Crop Monitoring </a></li>
+            </svg>Start A project </a></li>
       </ul>
     </div>
   </nav>
@@ -130,11 +224,13 @@
       $farms = $conn->query($farms);
       while ($farm = $farms->fetch_assoc()) {
         $field_id = $farm['id'];
+        $farm_condition = generateRandomSoilConditions();
       ?>
         <!-- farm -->
         <div class="container-fluid" style="margin-top:20px; padding-bottom:20px;">
           <h5 class="display-5"><?php echo $farm['name']; ?></h5>
           <h6 class="text-muted my-3">current soil status</h6>
+
           <div class="row">
             <!-- Count item widget-->
             <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
@@ -144,8 +240,8 @@
                 </svg>
                 <div class="ms-2">
                   <h3 class="h4 text-dark text-uppercase fw-normal">Soil moisture</h3>
-                  <p class="text-gray-500 small">(measured in %)</p>
-                  <p class="display-6 mb-0">25%</p>
+                  <p class="text-gray-500 small">(status)</p>
+                  <p class="display-6 mb-0"><?php echo $farm_condition['soil_moisture'] ?></p>
                 </div>
               </div>
             </div>
@@ -156,9 +252,9 @@
                   <use xlink:href="#survey-1"> </use>
                 </svg>
                 <div class="ms-2">
-                  <h3 class="h4 text-dark text-uppercase fw-normal">Soil temp..</h3>
-                  <p class="text-gray-500 small">(measured in °C)</p>
-                  <p class="display-6 mb-0">18° </p>
+                  <h3 class="h4 text-dark text-uppercase fw-normal">Nutrient</h3>
+                  <p class="text-gray-500 small">Level</p>
+                  <p class="display-6 mb-0"><?php echo $farm_condition['nutrient_content'] ?> </p>
                 </div>
               </div>
             </div>
@@ -171,7 +267,20 @@
                 <div class="ms-2">
                   <h3 class="h4 text-dark text-uppercase fw-normal">pH level</h3>
                   <p class="text-gray-500 small">measured in pH units</p>
-                  <p class="display-6 mb-0">6.5</p>
+                  <p class="display-6 mb-0"><?php echo $farm_condition['pH_level'] ?></p>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
+              <div class="d-flex">
+                <svg class="svg-icon svg-icon-sm svg-icon-heavy text-primary mt-1 flex-shrink-0">
+                  <use xlink:href="#survey-1"> </use>
+                </svg>
+                <div class="ms-2">
+                  <h3 class="h4 text-dark text-uppercase fw-normal">Soil temp..</h3>
+                  <p class="text-gray-500 small">(measured in °C)</p>
+                  <p class="display-6 mb-0"><?php echo $farm_condition['soil_temp'] ?>° </p>
                 </div>
               </div>
             </div>
@@ -182,25 +291,14 @@
                   <use xlink:href="#numbers-1"> </use>
                 </svg>
                 <div class="ms-2">
-                  <h3 class="h4 text-dark text-uppercase fw-normal">Nitrogen </h3>
-                  <p class="text-gray-500 small" title="(measured in parts per million)">Content in ppm</p>
-                  <p class="display-6 mb-0">120</p>
+                  <h3 class="h4 text-dark text-uppercase fw-normal">Texture </h3>
+                  <p class="text-gray-500 small" title="(measured in parts per million)">make</p>
+                  <p class="display-6 mb-0"> <?php echo $farm_condition['soil_texture'] ?></p>
                 </div>
               </div>
             </div>
-            <!-- Count item widget-->
-            <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-              <div class="d-flex">
-                <svg class="svg-icon svg-icon-sm svg-icon-heavy text-primary mt-1 flex-shrink-0">
-                  <use xlink:href="#literature-1"> </use>
-                </svg>
-                <div class="ms-2">
-                  <h3 class="h4 text-dark text-uppercase fw-normal">Organic</h3>
-                  <p class="text-gray-500 small">(percentage of soil weight)</p>
-                  <p class="display-6 mb-0">2.5%</p>
-                </div>
-              </div>
-            </div>
+
+
             <!-- Count item widget-->
             <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
               <div class="d-flex">
@@ -208,39 +306,14 @@
                   <use xlink:href="#paper-stack-1"> </use>
                 </svg>
                 <div class="ms-2">
-                  <h3 class="h4 text-dark text-uppercase fw-normal">Nutrient </h3>
+                  <h3 class="h4 text-dark text-uppercase fw-normal">Organic Matter </h3>
                   <p class="text-gray-500 small">Content</p>
-                  <p class="display-6 mb-0">High</p>
+                  <p class="display-6 mb-0"><?php echo $farm_condition['organic_matter']; ?></p>
                 </div>
               </div>
             </div>
           </div>
 
-          <h6 class="text-muted my-3">Soil Structure</h6>
-          <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-3">
-              <div class="card">
-                <div class="card-body">
-                  <p class="mb-0">
-                    <span class="text-info text-uppercase">Soil Type: </span>
-                    sandy
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-12 col-md-6 col-lg-3">
-              <div class="card">
-                <div class="card-body">
-                  <p class="mb-0">
-                    <span class="text-info text-uppercase">Altitude: </span>
-                    2000M
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
 
           <h6 class="text-muted my-3">Crops Planted in Field</h6>
           <div class="row">
@@ -248,6 +321,18 @@
             $crops = $conn->query("SELECT * FROM crop_field WHERE field_id = '$field_id' ");
             while ($row = $crops->fetch_assoc()) {
               $crop = $conn->query("SELECT * FROM crop where id=" . $row['crop_id'])->fetch_assoc();
+
+              $crop_harvest_time = $crop['days_to_harvest'];
+              $harvest_date = $row['harvest_date'];
+              // days from now to harvest date
+              $days_to_harvest = (strtotime($harvest_date) - strtotime(date("Y-m-d"))) / (60 * 60 * 24);
+              // days from now to planting date
+              $days_from_planting = ($crop_harvest_time - $days_to_harvest);
+
+              // ignore tea
+              if ($crop['name'] == "Tea") {
+                continue;
+              }
             ?>
               <!-- crop in a field -->
               <div class="col-12">
@@ -259,17 +344,36 @@
                     <div class="row">
                       <div class="col-sm-12 col-md-6 col-lg-3">
                         <h3 class="h4 text-dark text-uppercase fw-normal">Life till harvest</h3>
+                        <canvas class="col-12" id="chart-<?php echo $crop['name'] ?>"></canvas>
+
+                        <script>
+                          var PIECHART = document.getElementById("chart-<?php echo $crop['name'] ?>");
+                          var myPieChart = new Chart(PIECHART, {
+                            type: "doughnut",
+                            data: {
+                              labels: ["Harvest time (days)", "Time Passed"],
+                              datasets: [{
+                                data: [<?php echo $days_to_harvest; ?>, <?php echo $days_from_planting; ?>],
+                                borderWidth: [1, 1],
+                                backgroundColor: [brandPrimary, "rgba(75,192,192,1)", "#FFCE56"],
+                                hoverBackgroundColor: [brandPrimary, "rgba(75,192,192,1)", "#FFCE56"],
+                              }, ],
+                            },
+                          });
+                        </script>
+
+
                       </div>
                       <div class="col-sm-12 col-md-6 col-lg-8">
                         <h3 class="h4 text-dark text-uppercase fw-normal">Influence On Soil</h3>
                         <div class="table-responsive">
                           <!-- crop data -->
-                          <?php 
+                          <?php
                           $crop_data = $conn->query("SELECT * FROM crop_data WHERE crop_field_id = " . $crop['id'])->fetch_assoc();
                           $moisture = $crop_data['soil_moisture'];
                           $temperature = $crop_data['temperature'];
-                          $available_moisture = .25;
-                          $available_temperature = 20;
+                          $available_moisture = $farm_condition['soil_moisture'];
+                          $available_temperature = $farm_condition['soil_temp'];
                           $moisture_status = $moisture > $available_moisture ? 'good' : 'bad';
                           $temperature_status = $temperature > $available_temperature ? 'good' : 'Higher Temprature';
                           ?>
@@ -302,7 +406,7 @@
                                 <th colspan="5">Soil Adjustment Suggestions</th>
                               </tr>
                               <tr>
-                                <td colspan="4"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere nesciunt debitis minima? Totam accusantium rerum esse sed ipsum porro veritatis rem velit iusto repellat consequuntur dolorum, eveniet nobis voluptatem? Expedita.</td>
+                                <td colspan="4"><?php echo soilManagementSuggestions($crop['name'], $available_moisture, $available_temperature); ?></td>
                               </tr>
                             </tbody>
                           </table>
@@ -358,48 +462,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 
-  <!-- <script>
-    var brandPrimary = "#33b35a";
-    var PIECHART = document.getElementById("pieChart");
-    var myPieChart = new Chart(PIECHART, {
-      type: "doughnut",
-      data: {
-        labels: ["First", "Second", "Third"],
-        datasets: [{
-          data: [300, 50, 100],
-          borderWidth: [1, 1, 1],
-          backgroundColor: [brandPrimary, "rgba(75,192,192,1)", "#FFCE56"],
-          hoverBackgroundColor: [brandPrimary, "rgba(75,192,192,1)", "#FFCE56"],
-        }, ],
-      },
-    });
-  </script> -->
-  <script>
-    $(document).ready(function() {
-      $("#lineCahrt").click(function() {
-        $(".form-check").toggle(); // toggle visibility of all form-check elements
-        $(".form-check:hidden").slice(2).show(); // show only the first 2 hidden form-check elements
-      });
 
-      // card -playlist
-      // var cards = $(".green-card");
-      // var currentCard = 0;
-
-      // function nextCard() {
-      //   cards.removeClass("active");
-      //   cards.eq(currentCard).addClass("active");
-      //   currentCard = (currentCard + 1) % cards.length;
-      // }
-
-      // // Show first card
-      // cards.eq(currentCard).addClass("active");
-
-      // // Set interval to change card every 3 seconds
-      // setInterval(nextCard, 3000);
-
-      $(".green-card").hide();
-    });
-  </script>
 
 </body>
 

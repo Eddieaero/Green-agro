@@ -51,10 +51,10 @@
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
             </svg>Soil Management </a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="crop_monitoring.php">
+        <li class="sidebar-item"><a class="sidebar-link" href="crop_survey.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#portfolio-grid-1"> </use>
-            </svg>Crop Monitoring </a></li>
+            </svg>Start A project </a></li>
       </ul>
     </div>
   </nav>

@@ -34,6 +34,39 @@ include "db/dbconfig.php";
 </head>
 
 <body>
+    <div id="overlay">
+        <div class="container">
+            <div class="row px-1 py-2">
+                <div class="col-12 m-2">
+                    <div class="card">
+                        <div class="card-header">
+                            Soil Properties
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="soil-properties">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        #overlay {
+            position: fixed;
+            right: 10px;
+            top: 110px;
+            width: 30%;
+            height: 100%;
+            z-index: 1000;
+        }
+    </style>
     <div class="container-fluid px-5 d-none d-lg-block">
         <div class="row gx-5 py-3 align-items-center">
             <div class="col-lg-3">
@@ -75,12 +108,53 @@ include "db/dbconfig.php";
             display: flex;
             position: fixed;
             bottom: 5px;
-            left: 30px;
+            right: 30px;
+            z-index: 2000;
         }
     </style>
 
     <!-- JavaScript code -->
     <script>
+        // function data processor
+        function generateSoilProperties() {
+            const soilProperties = {};
+
+            // Generate pH value between 4.5 and 8.0
+            soilProperties.pH = Math.round((Math.random() * (8.0 - 4.5) + 4.5) * 10) / 10;
+
+            // Generate nutrient content value between 20 and 200
+            soilProperties.nutrientContent = Math.round((Math.random() * (200 - 20) + 20));
+
+            // Generate organic matter value between 1.0 and 3.5
+            soilProperties.organicMatter = Math.round((Math.random() * (3.5 - 1.0) + 1.0) * 10) / 10;
+
+            // Generate soil texture value from the list of possible textures
+            const possibleTextures = ["sandy", "loamy", "clayey"];
+            soilProperties.soilTexture = possibleTextures[Math.floor(Math.random() * possibleTextures.length)];
+
+            // Generate soil moisture value between 20 and 70
+            soilProperties.soilMoisture = Math.round((Math.random() * (70 - 20) + 20));
+
+            return soilProperties;
+        }
+
+        function get_soil_data() {
+            // Get the table body element
+            const tableBody = document.getElementById('soil-properties');
+            // clear the table body
+            tableBody.innerHTML = "";
+
+            // Create an object to store the soil properties
+            var soilProperties = generateSoilProperties();
+
+            // Loop through the soil properties and add a row for each one
+            for (const property in soilProperties) {
+                const value = soilProperties[property];
+                const row = `<tr><td>${property}</td><td>${value}</td></tr>`;
+                tableBody.innerHTML += row;
+            }
+        }
+
         // Initialize the map with the access token and center coordinates
         mapboxgl.accessToken = "pk.eyJ1IjoiZWRkaWVndWxsZWQiLCJhIjoiY2w5NWppb2JnMDJiazNubG42dnJmaWhpeSJ9.ypTxiUIVKR1bjuqbgUHR2g";
         // Initialize the map with center coordinates of [0, 0] and zoom level of 1
@@ -121,6 +195,8 @@ include "db/dbconfig.php";
             // Update the input fields with the clicked point's latitude and longitude
             document.getElementById("lat").value = e.lngLat.lat;
             document.getElementById("lng").value = e.lngLat.lng;
+
+            get_soil_data();
         });
     </script>
 
