@@ -263,6 +263,16 @@
                       <div class="col-sm-12 col-md-6 col-lg-8">
                         <h3 class="h4 text-dark text-uppercase fw-normal">Influence On Soil</h3>
                         <div class="table-responsive">
+                          <!-- crop data -->
+                          <?php 
+                          $crop_data = $conn->query("SELECT * FROM crop_data WHERE crop_field_id = " . $crop['id'])->fetch_assoc();
+                          $moisture = $crop_data['soil_moisture'];
+                          $temperature = $crop_data['temperature'];
+                          $available_moisture = .25;
+                          $available_temperature = 20;
+                          $moisture_status = $moisture > $available_moisture ? 'good' : 'bad';
+                          $temperature_status = $temperature > $available_temperature ? 'good' : 'Higher Temprature';
+                          ?>
                           <table class="table text-sm mb-0">
                             <thead>
                               <tr>
@@ -277,16 +287,16 @@
                               <tr>
                                 <th scope="row">1</th>
                                 <td>Soil moisture</td>
-                                <td>@req</td>
-                                <td>@available</td>
-                                <td>@status</td>
+                                <td><?php echo $moisture ?></td>
+                                <td><?php echo $available_moisture ?></td>
+                                <td><?php echo $moisture_status ?></td>
                               </tr>
                               <tr>
                                 <th scope="row">2</th>
                                 <td>Soil Temperature</td>
-                                <td>@req</td>
-                                <td>@available</td>
-                                <td>@status</td>
+                                <td><?php echo $temperature ?></td>
+                                <td><?php echo $available_temperature ?></td>
+                                <td><?php echo $temperature_status ?></td>
                               </tr>
                               <tr>
                                 <th colspan="5">Soil Adjustment Suggestions</th>
