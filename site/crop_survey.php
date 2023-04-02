@@ -50,10 +50,7 @@ include "db/dbconfig.php";
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#real-estate-1"> </use>
             </svg>Land </a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="weather.php">
-            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
-              <use xlink:href="#survey-1"> </use>
-            </svg>Weather </a></li>
+         
         <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>

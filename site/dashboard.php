@@ -43,10 +43,7 @@
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#real-estate-1"> </use>
             </svg>Land </a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="weather.php">
-            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
-              <use xlink:href="#survey-1"> </use>
-            </svg>Weather </a></li>
+         
         <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
@@ -211,17 +208,6 @@
       <div class="container-fluid">
         <div class="row d-flex align-items-md-stretch">
 
-          <!-- Pie Chart
-          <div class="col-lg-3 col-md-6">
-            <div class="card shadow-0">
-              <h2 class="h3 fw-normal">Expected Harvest</h2>
-              <p class="text-sm text-muted"> Crops Progress on farm</p>
-              <div class="pie-chart">
-                <canvas id="pieChart" style="width: 300px; height: 300px; max-width: 100%"> </canvas>
-              </div>
-            </div>
-          </div>-->
-
           <!-- Line Chart -->
           <div class="col-lg-6 col-md-12">
             <div class="card shadow-0">
@@ -238,30 +224,40 @@
                 <h2 class="h3 fw-normal">To do List</h2>
                 <form>
                   <h5>Actions to take based on soil changes:</h5>
+                  <?php $i = rand(1, 3); if($i<2){?>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list1">
                     <label class="form-check-label text-sm" for="list1">Soil pH is too low, add lime to raise soil pH.</label>
                   </div>
+                  <?php }else{ ?>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list2">
                     <label class="form-check-label text-sm" for="list2">Soil pH is too high, add sulfur to lower soil pH.</label>
                   </div>
+                  <?php } ?>
+
+                  <?php $i = rand(1, 3); if($i<2){?>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list3">
                     <label class="form-check-label text-sm" for="list3">Nitrogen content is too low, add nitrogen-rich fertilizers to improve plant growth.</label>
                   </div>
+                  <?php }else{ ?>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list4">
                     <label class="form-check-label text-sm" for="list4">Nitrogen content is too high, reduce the use of nitrogen fertilizers or switch to using organic fertilizers.</label>
                   </div>
+                  <?php } ?>
+                  <?php $i = rand(1, 3); if($i<2){?>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list5">
                     <label class="form-check-label text-sm" for="list5">Organic matter content is too low, consider adding compost or other organic matter to the soil to improve soil structure and fertility.</label>
                   </div>
+                  <?php }else{ ?>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="list6">
                     <label class="form-check-label text-sm" for="list6">Organic matter content is too high, consider reducing the amount of organic matter added or planting crops that are less tolerant of high organic matter levels.</label>
                   </div>
+                  <?php } ?>
                 </form>
                 <!-- for demonstration -->
 
@@ -272,7 +268,7 @@
 
           <div class="col-lg-3 col-md-6">
 
-            <div class="card green-card-1">
+            <div class="card green-card">
               <div class="card-header">
                 Soil Moisture
               </div>
@@ -373,22 +369,6 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 
-  <!-- <script>
-    var brandPrimary = "#33b35a";
-    var PIECHART = document.getElementById("pieChart");
-    var myPieChart = new Chart(PIECHART, {
-      type: "doughnut",
-      data: {
-        labels: ["First", "Second", "Third"],
-        datasets: [{
-          data: [300, 50, 100],
-          borderWidth: [1, 1, 1],
-          backgroundColor: [brandPrimary, "rgba(75,192,192,1)", "#FFCE56"],
-          hoverBackgroundColor: [brandPrimary, "rgba(75,192,192,1)", "#FFCE56"],
-        }, ],
-      },
-    });
-  </script> -->
   <script>
     $(document).ready(function() {
       $("#lineCahrt").click(function() {
@@ -410,9 +390,14 @@
       // cards.eq(currentCard).addClass("active");
 
       // // Set interval to change card every 3 seconds
-      // setInterval(nextCard, 3000);
+      // 
 
       $(".green-card").hide();
+      $(".green-card").eq(Math.floor(Math.random() * 6)).fadeIn();
+      setInterval(()=>{
+        $(".green-card").hide();
+        $(".green-card").eq(Math.floor(Math.random() * 6)).fadeIn();
+      }, 3000);
     });
   </script>
 
