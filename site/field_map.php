@@ -91,8 +91,10 @@ include "db/dbconfig.php";
     </div>
 
     <!-- Include Mapbox JavaScript SDK and access token -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
+
 
 
     <!-- map customization -->
@@ -160,7 +162,7 @@ include "db/dbconfig.php";
         // Initialize the map with center coordinates of [0, 0] and zoom level of 1
         var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/streets-v12',
             center: [0, 0],
             zoom: 9,
         });
@@ -177,6 +179,7 @@ include "db/dbconfig.php";
 
         // Add a marker to indicate the user's current location on the map
         var marker = new mapboxgl.Marker();
+        var marker_2 = new mapboxgl.Marker();
 
         // Get the user's current location using the Geolocation API
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -191,6 +194,7 @@ include "db/dbconfig.php";
         map.on('click', function(e) {
             // Move the marker to the clicked point
             marker.setLngLat([e.lngLat.lng, e.lngLat.lat]);
+            console.log(e);
 
             // Update the input fields with the clicked point's latitude and longitude
             document.getElementById("lat").value = e.lngLat.lat;
@@ -198,6 +202,15 @@ include "db/dbconfig.php";
 
             get_soil_data();
         });
+        setInterval(() => {
+            map.zoom = 0
+            map.flyTo({
+                center: [(Math.random() - 0.5) * 360, (Math.random() - 0.5) * 100],
+                essential: true // this animation is considered essential with respect to prefers-reduced-motion
+            });
+            map.zoom = 9
+        }, 10000);
+        
     </script>
 
     <?php // recover crops data;

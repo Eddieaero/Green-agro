@@ -3,7 +3,7 @@
 function generateRandomSoilConditions()
 {
   $pH_level = mt_rand(60, 70) / 10;  // random float between 6.0 and 7.0
-  $nutrient_content = mt_rand(80, 120);
+  $nutrient_content = mt_rand(80, 120); // 😅(unknown unit)
   $organic_matter = mt_rand(20, 40) / 10;  // random float between 2.0 and 4.0
   $soil_texture_options = array("clayey", "sandy", "loamy");
   $soil_texture = $soil_texture_options[array_rand($soil_texture_options)];
@@ -80,7 +80,7 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
       $suggestions .= "Tea prefers well-drained, slightly acidic soil with a pH between 4.5 and 5.5. Consider adding nitrogen-rich fertilizers for optimum growth. ";
       break;
     default:
-      $suggestions .= "No specific soil management suggestions available for this plant. ";
+      $suggestions .= "No specific Soil & Crop monitoring suggestions available for this plant. ";
   }
 
 
@@ -142,7 +142,7 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
         <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
-            </svg>Soil Management </a></li>
+            </svg>Soil & Crop monitoring </a></li>
         <li class="sidebar-item"><a class="sidebar-link" href="crop_survey.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#portfolio-grid-1"> </use>

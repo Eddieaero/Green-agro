@@ -13,7 +13,7 @@ To install this project, make sure you have PHP 7 or above and the MySQLi extens
 
 ## Features
 
-- Soil management suggestions based on crop and soil properties.
+- Soil & Crop monitoring suggestions based on crop and soil properties.
 - Fertilizer recommendations based on soil test results.
 - Slideshow with tips for managing soil health.
 - User authentication and authorization.

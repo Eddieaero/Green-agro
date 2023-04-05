@@ -1,3 +1,26 @@
+<?php
+function generateRandomSoilConditions()
+{
+  $pH_level = mt_rand(60, 70) / 10;  // random float between 6.0 and 7.0
+  $nutrient_content = mt_rand(80, 120);
+  $organic_matter = mt_rand(20, 40) / 10;  // random float between 2.0 and 4.0
+  $soil_texture_options = array("clayey", "sandy", "loamy");
+  $soil_texture = $soil_texture_options[array_rand($soil_texture_options)];
+  $soil_moisture = mt_rand(18, 30);  // random integer between 18 and 30
+  $soil_temp = mt_rand(15, 25);  // random integer between 15 and 25
+
+  return array(
+    "pH_level" => $pH_level,
+    "nutrient_content" => $nutrient_content,
+    "organic_matter" => $organic_matter,
+    "soil_texture" => $soil_texture,
+    "soil_moisture" => $soil_moisture,
+    "soil_temp" => $soil_temp
+  );
+}
+$farm_condition = generateRandomSoilConditions();
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -43,11 +66,11 @@
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#real-estate-1"> </use>
             </svg>Land </a></li>
-         
+
         <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
-            </svg>Soil Management </a></li>
+            </svg>Soil & Crop monitoring </a></li>
         <li class="sidebar-item"><a class="sidebar-link" href="crop_survey.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#portfolio-grid-1"> </use>
@@ -130,8 +153,8 @@
               </svg>
               <div class="ms-2">
                 <h3 class="h4 text-dark text-uppercase fw-normal">Soil moisture</h3>
-                <p class="text-gray-500 small">(measured in %)</p>
-                <p class="display-6 mb-0">25%</p>
+                <p class="text-gray-500 small">(status)</p>
+                <p class="display-6 mb-0"><?php echo $farm_condition['soil_moisture'] ?></p>
               </div>
             </div>
           </div>
@@ -142,9 +165,9 @@
                 <use xlink:href="#survey-1"> </use>
               </svg>
               <div class="ms-2">
-                <h3 class="h4 text-dark text-uppercase fw-normal">Soil temp..</h3>
-                <p class="text-gray-500 small">(measured in °C)</p>
-                <p class="display-6 mb-0">18° </p>
+                <h3 class="h4 text-dark text-uppercase fw-normal">Nutrient</h3>
+                <p class="text-gray-500 small">Level</p>
+                <p class="display-6 mb-0"><?php echo $farm_condition['nutrient_content'] ?> </p>
               </div>
             </div>
           </div>
@@ -157,7 +180,20 @@
               <div class="ms-2">
                 <h3 class="h4 text-dark text-uppercase fw-normal">pH level</h3>
                 <p class="text-gray-500 small">measured in pH units</p>
-                <p class="display-6 mb-0">6.5</p>
+                <p class="display-6 mb-0"><?php echo $farm_condition['pH_level'] ?></p>
+              </div>
+            </div>
+          </div>
+          <!-- Count item widget-->
+          <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
+            <div class="d-flex">
+              <svg class="svg-icon svg-icon-sm svg-icon-heavy text-primary mt-1 flex-shrink-0">
+                <use xlink:href="#survey-1"> </use>
+              </svg>
+              <div class="ms-2">
+                <h3 class="h4 text-dark text-uppercase fw-normal">Soil temp..</h3>
+                <p class="text-gray-500 small">(measured in °C)</p>
+                <p class="display-6 mb-0"><?php echo $farm_condition['soil_temp'] ?>° </p>
               </div>
             </div>
           </div>
@@ -168,25 +204,14 @@
                 <use xlink:href="#numbers-1"> </use>
               </svg>
               <div class="ms-2">
-                <h3 class="h4 text-dark text-uppercase fw-normal">Nitrogen </h3>
-                <p class="text-gray-500 small" title="(measured in parts per million)">Content in ppm</p>
-                <p class="display-6 mb-0">120</p>
+                <h3 class="h4 text-dark text-uppercase fw-normal">Texture </h3>
+                <p class="text-gray-500 small" title="(measured in parts per million)">make</p>
+                <p class="display-6 mb-0"> <?php echo $farm_condition['soil_texture'] ?></p>
               </div>
             </div>
           </div>
-          <!-- Count item widget-->
-          <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
-            <div class="d-flex">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy text-primary mt-1 flex-shrink-0">
-                <use xlink:href="#literature-1"> </use>
-              </svg>
-              <div class="ms-2">
-                <h3 class="h4 text-dark text-uppercase fw-normal">Organic</h3>
-                <p class="text-gray-500 small">(percentage of soil weight)</p>
-                <p class="display-6 mb-0">2.5%</p>
-              </div>
-            </div>
-          </div>
+
+
           <!-- Count item widget-->
           <div class="col-xl-2 col-md-4 col-6 gy-4 gy-xl-0">
             <div class="d-flex">
@@ -194,9 +219,9 @@
                 <use xlink:href="#paper-stack-1"> </use>
               </svg>
               <div class="ms-2">
-                <h3 class="h4 text-dark text-uppercase fw-normal">Nutrient </h3>
+                <h3 class="h4 text-dark text-uppercase fw-normal">Organic Matter </h3>
                 <p class="text-gray-500 small">Content</p>
-                <p class="display-6 mb-0">High</p>
+                <p class="display-6 mb-0"><?php echo $farm_condition['organic_matter']; ?></p>
               </div>
             </div>
           </div>
@@ -224,39 +249,42 @@
                 <h2 class="h3 fw-normal">To do List</h2>
                 <form>
                   <h5>Actions to take based on soil changes:</h5>
-                  <?php $i = rand(1, 3); if($i<2){?>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="list1">
-                    <label class="form-check-label text-sm" for="list1">Soil pH is too low, add lime to raise soil pH.</label>
-                  </div>
-                  <?php }else{ ?>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="list2">
-                    <label class="form-check-label text-sm" for="list2">Soil pH is too high, add sulfur to lower soil pH.</label>
-                  </div>
+                  <?php $i = rand(1, 3);
+                  if ($i < 2) { ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="list1">
+                      <label class="form-check-label text-sm" for="list1">Soil pH is too low, add lime to raise soil pH.</label>
+                    </div>
+                  <?php } else { ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="list2">
+                      <label class="form-check-label text-sm" for="list2">Soil pH is too high, add sulfur to lower soil pH.</label>
+                    </div>
                   <?php } ?>
 
-                  <?php $i = rand(1, 3); if($i<2){?>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="list3">
-                    <label class="form-check-label text-sm" for="list3">Nitrogen content is too low, add nitrogen-rich fertilizers to improve plant growth.</label>
-                  </div>
-                  <?php }else{ ?>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="list4">
-                    <label class="form-check-label text-sm" for="list4">Nitrogen content is too high, reduce the use of nitrogen fertilizers or switch to using organic fertilizers.</label>
-                  </div>
+                  <?php $i = rand(1, 3);
+                  if ($i < 2) { ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="list3">
+                      <label class="form-check-label text-sm" for="list3">Nitrogen content is too low, add nitrogen-rich fertilizers to improve plant growth.</label>
+                    </div>
+                  <?php } else { ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="list4">
+                      <label class="form-check-label text-sm" for="list4">Nitrogen content is too high, reduce the use of nitrogen fertilizers or switch to using organic fertilizers.</label>
+                    </div>
                   <?php } ?>
-                  <?php $i = rand(1, 3); if($i<2){?>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="list5">
-                    <label class="form-check-label text-sm" for="list5">Organic matter content is too low, consider adding compost or other organic matter to the soil to improve soil structure and fertility.</label>
-                  </div>
-                  <?php }else{ ?>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="list6">
-                    <label class="form-check-label text-sm" for="list6">Organic matter content is too high, consider reducing the amount of organic matter added or planting crops that are less tolerant of high organic matter levels.</label>
-                  </div>
+                  <?php $i = rand(1, 3);
+                  if ($i < 2) { ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="list5">
+                      <label class="form-check-label text-sm" for="list5">Organic matter content is too low, consider adding compost or other organic matter to the soil to improve soil structure and fertility.</label>
+                    </div>
+                  <?php } else { ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="list6">
+                      <label class="form-check-label text-sm" for="list6">Organic matter content is too high, consider reducing the amount of organic matter added or planting crops that are less tolerant of high organic matter levels.</label>
+                    </div>
                   <?php } ?>
                 </form>
                 <!-- for demonstration -->
@@ -394,7 +422,7 @@
 
       $(".green-card").hide();
       $(".green-card").eq(Math.floor(Math.random() * 6)).fadeIn();
-      setInterval(()=>{
+      setInterval(() => {
         $(".green-card").hide();
         $(".green-card").eq(Math.floor(Math.random() * 6)).fadeIn();
       }, 3000);

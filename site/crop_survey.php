@@ -54,7 +54,7 @@ include "db/dbconfig.php";
         <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
-            </svg>Soil Management </a></li>
+            </svg>Soil & Crop monitoring </a></li>
         <li class="sidebar-item"><a class="sidebar-link" href="crop_survey.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#portfolio-grid-1"> </use>
