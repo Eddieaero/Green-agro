@@ -56,7 +56,7 @@ $farm_condition = generateRandomSoilConditions();
           <!-- <h2 class="h5 text-white text-uppercase mb-0">Nathan Andrews</h2>
             <p class="text-sm mb-0 text-muted">Web Developer</p> -->
         </div>
-        <!-- Small Brand information, appears on minimized sidebar--><a class="brand-small text-center" href="index.html">
+        <!-- Small Brand information, appears on minimized sidebar--><a class="brand-small text-center" href="/site/">
           <p class="h1 m-0">BD</p>
         </a>
       </div>
@@ -65,7 +65,7 @@ $farm_condition = generateRandomSoilConditions();
         <li class="sidebar-item"><a class="sidebar-link" href="dashboard.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#real-estate-1"> </use>
-            </svg>Land </a></li>
+            </svg>Home </a></li>
 
         <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
@@ -75,6 +75,10 @@ $farm_condition = generateRandomSoilConditions();
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#portfolio-grid-1"> </use>
             </svg>Start A project </a></li>
+        <li class="sidebar-item"><a class="sidebar-link" href="crop_market_prices.php">
+            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
+              <use xlink:href="#sales-up-1"> </use>
+            </svg>Crop Market Trends </a></li>
       </ul>
     </div>
   </nav>

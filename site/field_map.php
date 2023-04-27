@@ -202,14 +202,7 @@ include "db/dbconfig.php";
 
             get_soil_data();
         });
-        setInterval(() => {
-            map.zoom = 0
-            map.flyTo({
-                center: [(Math.random() - 0.5) * 360, (Math.random() - 0.5) * 100],
-                essential: true // this animation is considered essential with respect to prefers-reduced-motion
-            });
-            map.zoom = 9
-        }, 10000);
+       
         
     </script>
 
