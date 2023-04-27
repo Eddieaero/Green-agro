@@ -120,19 +120,11 @@ include "db/dbconfig.php";
         // function data processor
         function generateSoilProperties() {
             const soilProperties = {};
-
-            // Generate pH value between 4.5 and 8.0
-            soilProperties.pH = Math.round((Math.random() * (8.0 - 4.5) + 4.5) * 10) / 10;
-
             // Generate nutrient content value between 20 and 200
             soilProperties.nutrientContent = Math.round((Math.random() * (200 - 20) + 20));
 
             // Generate organic matter value between 1.0 and 3.5
             soilProperties.organicMatter = Math.round((Math.random() * (3.5 - 1.0) + 1.0) * 10) / 10;
-
-            // Generate soil texture value from the list of possible textures
-            const possibleTextures = ["sandy", "loamy", "clayey"];
-            soilProperties.soilTexture = possibleTextures[Math.floor(Math.random() * possibleTextures.length)];
 
             // Generate soil moisture value between 20 and 70
             soilProperties.soilMoisture = Math.round((Math.random() * (70 - 20) + 20));
@@ -140,6 +132,19 @@ include "db/dbconfig.php";
             return soilProperties;
         }
 
+        function getData(url, callback) {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    const data = JSON.parse(this.responseText);
+                    callback(data);
+                }
+            };
+            xhttp.open('GET', url, true);
+            xhttp.send();
+        }
+
+        var sdc = null
         function get_soil_data() {
             // Get the table body element
             const tableBody = document.getElementById('soil-properties');
@@ -155,6 +160,55 @@ include "db/dbconfig.php";
                 const row = `<tr><td>${property}</td><td>${value}</td></tr>`;
                 tableBody.innerHTML += row;
             }
+
+            // get soil lan and vegetation cover
+
+            // coordinates
+            lat = document.getElementById("lat").value;
+            lng = document.getElementById("lng").value;
+
+            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat="+lat+"&lon="+lng+"&property=crop_cover_2019&depth=0";
+            getData(url, (data) => {
+                coverage_value = data.property.crop_cover_2019[0].value.value
+                coverage_unit = data.property.crop_cover_2019[0].value.unit
+
+                // add crop coverage into a table
+                const row = `<tr><td>Crop Coverage</td><td>${coverage_value} ${coverage_unit}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            // get land coverage
+            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat="+lat+"&lon="+lng+"&property=land_cover_2019&depth=0";
+            getData(url, (data) => {
+                coverage_value = data.property.land_cover_2019[0].value.value
+
+                // add crop coverage into a table
+                const row = `<tr><td>Land Coverage</td><td>${coverage_value}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            // get soil ph
+            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat="+lat+"&lon="+lng+"&property=ph&depth=0-20";
+            getData(url, (data) => {
+                
+                coverage_value = data.property.ph[0].value.value
+
+                // add crop coverage into a table
+                const row = `<tr><td>Soil pH</td><td>${coverage_value}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            // get soil texture
+            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat="+lat+"&lon="+lng+"&property=texture_class&depth=0-20";
+            getData(url, (data) => {
+                
+                coverage_value = data.property.texture_class[0].value.value
+
+                // add crop coverage into a table
+                const row = `<tr><td>Soil Texture</td><td>${coverage_value}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+
         }
 
         // Initialize the map with the access token and center coordinates
@@ -202,8 +256,6 @@ include "db/dbconfig.php";
 
             get_soil_data();
         });
-       
-        
     </script>
 
     <?php // recover crops data;
