@@ -341,6 +341,9 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
                   <div class="card-body">
                     <div class="row">
                       <div class="col-sm-12 col-md-6 col-lg-3">
+                        
+                        <img src="img/crops/maize.jpg" alt="" class="img-fluid rounded my-3">
+
                         <h3 class="h4 text-dark text-uppercase fw-normal">Life till harvest</h3>
                         <canvas class="col-12" id="chart-<?php echo $crop['name'] ?>"></canvas>
 
