@@ -27,13 +27,14 @@ foreach ($crops as $crop) {
     // create new crop data
     $crop_data_id = rand(890, 5000);
     $crop = $crop_row['id'];
-    $field_id = $crop_row['name'];
     $crop_field = $field_id;
     $crop_plant_date = date("Y-m-d H:i:s");
     $crop_time = date('Y-m-d H:i:s', strtotime("+$time days"));
-    $crop_query = "INSERT INTO crops (id, crop_id, field_id, plant_date, time_to_harvest) VALUES ('$crop_data_id', '$crop', '$crop_field', '$crop_plant_date', '$crop_time')";
+    $crop_query = "INSERT INTO crop_field (id, crop_id, field_id, planting_date, harvest_date) VALUES ('$crop_data_id', '$crop', '$crop_field', '$crop_plant_date', '$crop_time')";
     $crop_result = mysqli_query($conn, $crop_query);
+
 }
 
 header('Location: dashboard.php');
+
 ?>

@@ -20,6 +20,7 @@ function generateRandomSoilConditions()
   );
 }
 
+
 function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
 {
   $suggestions = '';
@@ -138,7 +139,7 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#real-estate-1"> </use>
             </svg>Land </a></li>
-         
+
         <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
@@ -454,6 +455,49 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
     // pls don't forget to change to your domain :)
     injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
   </script>
+
+
+  <script>
+    const AccuWeather = "ncL8ozIdBB0n57EPg2LoEIEhjgZFjooI"
+
+    const apiKey = AccuWeather; // Replace with your API key from AccuWeather
+    const lat = 37.7749; // Replace with the latitude of the location you want to get weather data for
+    const lon = -122.4194; // Replace with the longitude of the location you want to get weather data for
+    const apiUrl = `https://dataservice.accuweather.com/currentconditions/v1/${getLocationKey(lat, lon)}?apikey=${apiKey}`;
+
+    // Helper function to get the location key for a given latitude and longitude
+    function getLocationKey(lat, lon) {
+      const locationApiUrl = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${apiKey}&q=${lat},${lon}`;
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", locationApiUrl, false);
+      xhr.send();
+      const response = JSON.parse(xhr.responseText);
+      return response.Key;
+    }
+
+    // Make a GET request to the AccuWeather API using the XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", apiUrl, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        // Extract the relevant weather data from the API response
+        const data = JSON.parse(xhr.responseText);
+        const temperature = data.Temperature.Metric.Value;
+        const description = data.WeatherText;
+        const precipitation = data.HasPrecipitation;
+
+        // Log the weather data to the console
+        console.log(`Current weather at (${lat}, ${lon}):`);
+        console.log(`Temperature: ${temperature} C`);
+        console.log(`Description: ${description}`);
+        console.log(`Precipitation: ${precipitation} `);
+      }
+    };
+    xhr.send();
+  </script>
+
+
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">

@@ -96,6 +96,9 @@ include "db/dbconfig.php";
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css' rel='stylesheet' />
 
 
+    <?php // recover crops data;
+    $_SESSION['crops'] = $_POST['crops']
+    ?>
 
     <!-- map customization -->
     <form method="post" action="process_field_map.php" name="place" id="place"><input type="text" name="lat" id="lat"><input type="text" name="lng" id="lng"><input type="submit" value="set field location" class="btn btn-success btn-sm " name="place" id="submit"></form>
@@ -145,6 +148,7 @@ include "db/dbconfig.php";
         }
 
         var sdc = null
+
         function get_soil_data() {
             // Get the table body element
             const tableBody = document.getElementById('soil-properties');
@@ -167,7 +171,7 @@ include "db/dbconfig.php";
             lat = document.getElementById("lat").value;
             lng = document.getElementById("lng").value;
 
-            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat="+lat+"&lon="+lng+"&property=crop_cover_2019&depth=0";
+            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat=" + lat + "&lon=" + lng + "&property=crop_cover_2019&depth=0";
             getData(url, (data) => {
                 coverage_value = data.property.crop_cover_2019[0].value.value
                 coverage_unit = data.property.crop_cover_2019[0].value.unit
@@ -178,7 +182,7 @@ include "db/dbconfig.php";
             });
 
             // get land coverage
-            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat="+lat+"&lon="+lng+"&property=land_cover_2019&depth=0";
+            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat=" + lat + "&lon=" + lng + "&property=land_cover_2019&depth=0";
             getData(url, (data) => {
                 coverage_value = data.property.land_cover_2019[0].value.value
 
@@ -188,9 +192,9 @@ include "db/dbconfig.php";
             });
 
             // get soil ph
-            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat="+lat+"&lon="+lng+"&property=ph&depth=0-20";
+            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat=" + lat + "&lon=" + lng + "&property=ph&depth=0-20";
             getData(url, (data) => {
-                
+
                 coverage_value = data.property.ph[0].value.value
 
                 // add crop coverage into a table
@@ -199,9 +203,9 @@ include "db/dbconfig.php";
             });
 
             // get soil texture
-            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat="+lat+"&lon="+lng+"&property=texture_class&depth=0-20";
+            url = "https://api.isda-africa.com/v1/soilproperty?key=AIzaSyCruMPt43aekqITCooCNWGombhbcor3cf4&lat=" + lat + "&lon=" + lng + "&property=texture_class&depth=0-20";
             getData(url, (data) => {
-                
+
                 coverage_value = data.property.texture_class[0].value.value
 
                 // add crop coverage into a table
@@ -257,11 +261,6 @@ include "db/dbconfig.php";
             get_soil_data();
         });
     </script>
-
-    <?php // recover crops data;
-    $_SESSION['crops'] = $_POST['crops']
-    ?>
-
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
