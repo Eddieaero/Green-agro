@@ -67,14 +67,16 @@ $farm_condition = generateRandomSoilConditions();
               <use xlink:href="#real-estate-1"> </use>
             </svg>Home </a></li>
 
-        <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
-            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
-              <use xlink:href="#sales-up-1"> </use>
-            </svg>Soil & Crop monitoring </a></li>
         <li class="sidebar-item"><a class="sidebar-link" href="crop_survey.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#portfolio-grid-1"> </use>
             </svg>Start A project </a></li>
+
+        <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
+            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
+              <use xlink:href="#sales-up-1"> </use>
+            </svg>Soil & Crop monitoring </a></li>
+
         <li class="sidebar-item"><a class="sidebar-link" href="crop_market_prices.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
