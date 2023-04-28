@@ -74,7 +74,7 @@ include "db/dbconfig.php";
             </div>
             <div class="col-lg-6">
                 <div class="d-flex align-items-center justify-content-center">
-                    <a href="index.html" class="navbar-brand ms-lg-5">
+                    <a href="index.php" class="navbar-brand ms-lg-5">
                         <h1 class="m-0 display-4 text-primary">
                             <img id="logo" src="img/Group 6.png" alt="#" />
                         </h1>

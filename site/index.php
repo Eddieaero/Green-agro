@@ -17,6 +17,7 @@
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -37,7 +38,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="d-flex align-items-center justify-content-center">
-                    <a href="index.html" class="navbar-brand ms-lg-5">
+                    <a href="index.php" class="navbar-brand ms-lg-5">
                         <h1 class="m-0 display-4 text-primary">
                             <img id="logo" src="img/Group 6.png" alt="#"/>
                         </h1>
@@ -53,7 +54,7 @@
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
-        <a href="index.html" class="navbar-brand d-flex d-lg-none">
+        <a href="index.php" class="navbar-brand d-flex d-lg-none">
             <h1 class="m-0 display-4 text-secondary">Green Agro Systems</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -61,7 +62,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
+                <a href="index.php" class="nav-item nav-link active">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
@@ -240,7 +241,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-item bg-light text-center p-5">
-                        <i class="fa fa-carrot display-1 text-primary mb-3"></i>
+                        <i class="fa fa-carrot display-1 text-primary mb-3"></i>git 
                         <h4>Precision Agriculture</h4>
                         <p class="mb-0">through a combination of technology, data analysis, and agronomic expertise to provide farmers with targeted recommendations to optimize crop yields, reduce costs, and increase sustainability</p>
                     </div>
@@ -250,6 +251,27 @@
                         <i class="fa fa-apple-alt display-1 text-primary mb-3"></i>
                         <h4>Crop Monitoring</h4>
                         <p class="mb-0">through our huge database data is analyzed to provide farmers with insights on crop health, stress, and growth, helping them to make informed decisions about irrigation and fertilization</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item bg-light text-center p-5">
+                        <!-- <i class="fa fa-apple-alt display-1 text-primary mb-3"></i> -->
+                        <h4>Market Search</h4>
+                        <p class="mb-0"> build capacity to reach out and conquer high crop sales with monthly to daily data of food prices all over the country </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item bg-light text-center p-5">
+                        <!-- <i class="fa fa-apple-alt display-1 text-primary mb-3"></i> -->
+                        <h4>Weather Assurance</h4>
+                        <p class="mb-0">on every preparatory stage of the farming period, come across climate data for short and long term and plan resources accordingly </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item bg-light text-center p-5">
+                        <!-- <i class="fa-solid fa-temperature-sun display-1 text-primary mb-3" style="color: #29b0b3;"></i> -->
+                        <h4>World Updates</h4>
+                        <p class="mb-0"> stay on track with latest World news Updates about opportunities and triggers on agricultural base firms </p>
                     </div>
                 </div>
                 <!-- The following features are not implemented yet --

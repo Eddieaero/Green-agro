@@ -43,7 +43,7 @@ include "db/dbconfig.php";
             </div>
             <div class="col-lg-6">
                 <div class="d-flex align-items-center justify-content-center">
-                    <a href="index.html" class="navbar-brand ms-lg-5">
+                    <a href="index.php" class="navbar-brand ms-lg-5">
                         <h1 class="m-0 display-4 text-primary">
                             <img id="logo" src="img/Group 6.png" alt="#" />
                         </h1>
@@ -63,7 +63,7 @@ include "db/dbconfig.php";
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-5">
-        <a href="index.html" class="navbar-brand d-flex d-lg-none">
+        <a href="index.php" class="navbar-brand d-flex d-lg-none">
             <h1 class="m-0 display-4 text-secondary">Green Agro Systems</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -71,7 +71,7 @@ include "db/dbconfig.php";
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto py-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
+                <a href="index.php" class="nav-item nav-link active">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="service.html" class="nav-item nav-link">Project</a>
 

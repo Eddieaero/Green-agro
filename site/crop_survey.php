@@ -40,7 +40,7 @@ include "db/dbconfig.php";
           <!-- <h2 class="h5 text-white text-uppercase mb-0">Nathan Andrews</h2>
             <p class="text-sm mb-0 text-muted">Web Developer</p> -->
         </div>
-        <!-- Small Brand information, appears on minimized sidebar--><a class="brand-small text-center" href="index.html">
+        <!-- Small Brand information, appears on minimized sidebar--><a class="brand-small text-center" href="index.php">
           <p class="h1 m-0">BD</p>
         </a>
       </div>
@@ -71,7 +71,7 @@ include "db/dbconfig.php";
             <div class="d-flex align-items-center"><a class="menu-btn d-flex align-items-center justify-content-center p-2 bg-gray-900" id="toggle-btn" href="#">
                 <svg class="svg-icon svg-icon-sm svg-icon-heavy text-white">
                   <use xlink:href="#menu-1"> </use>
-                </svg></a><a class="navbar-brand ms-2" href="index.html">
+                </svg></a><a class="navbar-brand ms-2" href="index.php">
                 <div class="brand-text d-none d-md-inline-block text-uppercase letter-spacing-0"><span class="text-white fw-normal text-xs"> </span><strong class="text-primary text-sm">Dashboard</strong></div>
               </a></div>
             <ul class="nav-menu mb-0 list-unstyled d-flex flex-md-row align-items-md-center">
@@ -137,7 +137,7 @@ include "db/dbconfig.php";
           </div>
           <div class="col-lg-6">
             <div class="d-flex align-items-center justify-content-center">
-              <a href="index.html" class="navbar-brand ms-lg-5">
+              <a href="index.php" class="navbar-brand ms-lg-5">
                 <h1 class="m-0 display-4 text-primary">
                   <img id="logo" src="img/Group 6.png" alt="#" />
                 </h1>
