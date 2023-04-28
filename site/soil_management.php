@@ -167,7 +167,7 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
           <!-- <h2 class="h5 text-white text-uppercase mb-0">Nathan Andrews</h2>
             <p class="text-sm mb-0 text-muted">Web Developer</p> -->
         </div>
-        <a class="brand-small text-center" href="">
+        <!-- Small Brand information, appears on minimized sidebar--><a class="brand-small text-center" href="/site/">
           <p class="h1 m-0">BD</p>
         </a>
       </div>
@@ -176,19 +176,26 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
         <li class="sidebar-item"><a class="sidebar-link" href="dashboard.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#real-estate-1"> </use>
-            </svg>Land </a></li>
+            </svg>Home </a></li>
+
+        <li class="sidebar-item"><a class="sidebar-link" href="crop_survey.php">
+            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
+              <use xlink:href="#portfolio-grid-1"> </use>
+            </svg>Start A project </a></li>
 
         <li class="sidebar-item"><a class="sidebar-link" href="soil_management.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
               <use xlink:href="#sales-up-1"> </use>
             </svg>Soil & Crop monitoring </a></li>
-        <li class="sidebar-item"><a class="sidebar-link" href="crop_survey.php">
+
+        <li class="sidebar-item"><a class="sidebar-link" href="crop_market_prices.php">
             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-2">
-              <use xlink:href="#portfolio-grid-1"> </use>
-            </svg>Start A project </a></li>
+              <use xlink:href="#sales-up-1"> </use>
+            </svg>Crop Market Trends </a></li>
       </ul>
     </div>
   </nav>
+
   <div class="page">
     <!-- navbar-->
     <header class="header mb-5 pb-3">
@@ -508,6 +515,12 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
                                     <td><?php echo $crop_stage['possible_issues'] ?></td>
                                   </tr>
                                 <?php } ?>
+                                <!-- add a full width row with a button saying Progress -->
+                                <tr>
+                                  <td colspan="3">
+                                    <a href="crop_data.php?crop_id=<?php echo $crop['id'] ?>" class="btn btn-primary btn-sm">Progress</a>
+                                  </td>
+                                </tr>
                               </tbody>
                             </table>
                             <div>

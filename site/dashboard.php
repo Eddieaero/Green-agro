@@ -84,6 +84,7 @@ $farm_condition = generateRandomSoilConditions();
       </ul>
     </div>
   </nav>
+  
   <div class="page">
     <!-- navbar-->
     <header class="header mb-5 pb-3">
