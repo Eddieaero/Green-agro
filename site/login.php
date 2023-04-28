@@ -78,8 +78,9 @@
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <!-- <a href="service.html" class="nav-item nav-link">Service</a> -->
                 <a href="service.html" class="nav-item nav-link">Project</a>
-
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="subscription.html" class="nav-item nav-link">subscription</a>
+
             </div>
         </div>
     </nav>

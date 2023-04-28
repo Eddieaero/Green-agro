@@ -74,8 +74,9 @@ include "db/dbconfig.php";
                 <a href="index.php" class="nav-item nav-link active">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="service.html" class="nav-item nav-link">Project</a>
-
+                <a href="subscription.html" class="nav-item nav-link">subscription</a>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
+
             </div>
         </div>
     </nav>
