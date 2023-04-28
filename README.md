@@ -13,11 +13,11 @@
 
 
 ## Technologies Used
-
 - PHP
 - MySQL
 - HTML/CSS
 - JavaScript/jQuery
+
 
 ## Installation
 
