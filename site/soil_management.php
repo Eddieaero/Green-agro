@@ -1,6 +1,6 @@
 <?php include('db/dbconfig.php');
 
-function generateRandomSoilConditions()
+function _generateRandomSoilConditions()
 {
   $pH_level = mt_rand(60, 70) / 10;  // random float between 6.0 and 7.0
   $nutrient_content = mt_rand(80, 120); // 😅(unknown unit)
@@ -19,6 +19,36 @@ function generateRandomSoilConditions()
     "soil_temp" => $soil_temp
   );
 }
+
+function generateRandomSoilConditions()
+{
+  $pH_level = mt_rand(60, 70) / 10;  // random float between 6.0 and 7.0
+  $nutrient_content = mt_rand(80, 120); // 😅(unknown unit)
+  $organic_matter = mt_rand(20, 40) / 10;  // random float between 2.0 and 4.0
+  $soil_texture_options = array("clayey", "sandy", "loamy");
+  $soil_texture = $soil_texture_options[array_rand($soil_texture_options)];
+  $soil_moisture = mt_rand(18, 30);  // random integer between 18 and 30
+  $soil_temp = mt_rand(15, 35);  // random integer between 15 and 35, adjusted for Tanzania temperature range
+  $precipitation = mt_rand(0, 500); // random integer between 0 and 500, representing mm of rainfall per month
+  $crop_ph_level = mt_rand(50, 70) / 10; // random float between 5.0 and 7.0, representing ideal pH level for the crop
+  $temperature_min = mt_rand(18, 24); // random integer between 18 and 24, representing the minimum temperature required for the crop
+  $temperature_max = mt_rand(26, 35); // random integer between 26 and 35, representing the maximum temperature required for the crop
+
+  return array(
+    "pH_level" => $pH_level,
+    "nutrient_content" => $nutrient_content,
+    "organic_matter" => $organic_matter,
+    "soil_texture" => $soil_texture,
+    "soil_moisture" => $soil_moisture,
+    "soil_temp" => $soil_temp,
+    "precipitation" => $precipitation,
+    "crop_ph_level" => $crop_ph_level,
+    "temperature_min" => $temperature_min,
+    "temperature_max" => $temperature_max
+  );
+}
+
+
 
 
 function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
@@ -115,6 +145,14 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     var brandPrimary = "#33b35a";
+
+    function generateRandomColor() {
+      var r = Math.floor(Math.random() * 256);
+      var g = Math.floor(Math.random() * 256);
+      var b = Math.floor(Math.random() * 256);
+      var a = Math.random().toFixed(1);
+      return "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
+    }
   </script>
 </head>
 
@@ -341,7 +379,7 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
                   <div class="card-body">
                     <div class="row">
                       <div class="col-sm-12 col-md-6 col-lg-3">
-                        
+
                         <img src="img/crops/maize.jpg" alt="" class="img-fluid rounded my-3">
 
                         <h3 class="h4 text-dark text-uppercase fw-normal">Life till harvest</h3>
@@ -349,6 +387,7 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
 
                         <script>
                           var PIECHART = document.getElementById("chart-<?php echo $crop['name'] ?>");
+                          var target_color = generateRandomColor();
                           var myPieChart = new Chart(PIECHART, {
                             type: "doughnut",
                             data: {
@@ -356,27 +395,59 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
                               datasets: [{
                                 data: [<?php echo $days_to_harvest; ?>, <?php echo $days_from_planting; ?>],
                                 borderWidth: [1, 1],
-                                backgroundColor: [brandPrimary, "rgba(75,192,192,1)", "#FFCE56"],
+                                backgroundColor: [brandPrimary, target_color, "#FFCE56"],
                                 hoverBackgroundColor: [brandPrimary, "rgba(75,192,192,1)", "#FFCE56"],
                               }, ],
                             },
                           });
                         </script>
-
-
                       </div>
+
+
                       <div class="col-sm-12 col-md-6 col-lg-8">
                         <h3 class="h4 text-dark text-uppercase fw-normal">Influence On Soil</h3>
                         <div class="table-responsive">
                           <!-- crop data -->
                           <?php
-                          $crop_data = $conn->query("SELECT * FROM crop_data WHERE crop_field_id = " . $crop['id'])->fetch_assoc();
-                          $moisture = $crop_data['soil_moisture'];
-                          $temperature = $crop_data['temperature'];
-                          $available_moisture = $farm_condition['soil_moisture'];
-                          $available_temperature = $farm_condition['soil_temp'];
-                          $moisture_status = $moisture > $available_moisture ? 'good' : 'bad';
-                          $temperature_status = $temperature > $available_temperature ? 'good' : 'Higher Temprature';
+                          $crop_data = $conn->query("SELECT * FROM crop_condition WHERE crop_id = " . $crop['id'])->fetch_assoc();
+
+                          $max_ph_level = $crop_data['max_ph_level'];
+                          $min_ph_level = $crop_data['min_ph_level'];
+                          $ph_level = $farm_condition['pH_level'];
+                          $ph_status = ($ph_level >= $min_ph_level && $ph_level <= $max_ph_level) ? 'good' : 'bad';
+
+                          $max_nutrient_content = $crop_data['max_nutrient_content'];
+                          $min_nutrient_content = $crop_data['min_nutrient_content'];
+                          $nutrient_content = $farm_condition['nutrient_content'];
+                          $nutrient_status = ($nutrient_content >= $min_nutrient_content && $nutrient_content <= $max_nutrient_content) ? 'good' : 'bad';
+
+                          $max_organic_matter = $crop_data['max_organic_matter'];
+                          $min_organic_matter = $crop_data['min_organic_matter'];
+                          $organic_matter = $farm_condition['organic_matter'];
+                          $organic_matter_status = ($organic_matter >= $min_organic_matter && $organic_matter <= $max_organic_matter) ? 'good' : 'bad';
+
+                          $max_soil_moisture = $crop_data['max_soil_moisture'];
+                          $min_soil_moisture = $crop_data['min_soil_moisture'];
+                          $soil_moisture = $farm_condition['soil_moisture'];
+                          $soil_moisture_status = ($soil_moisture >= $min_soil_moisture && $soil_moisture <= $max_soil_moisture) ? 'good' : 'bad';
+
+                          $max_soil_temp = $crop_data['max_soil_temp'];
+                          $min_soil_temp = $crop_data['min_soil_temp'];
+                          $soil_temp = $farm_condition['soil_temp'];
+                          $soil_temp_status = ($soil_temp >= $min_soil_temp && $soil_temp <= $max_soil_temp) ? 'good' : 'bad';
+
+                          $max_precipitation = $crop_data['max_precipitation'];
+                          $min_precipitation = $crop_data['min_precipitation'];
+                          $precipitation = $farm_condition['precipitation'];
+                          $precipitation_status = ($precipitation >= $min_precipitation && $precipitation <= $max_precipitation) ? 'good' : 'bad';
+
+                          $max_temperature = $crop_data['max_temperature'];
+                          $min_temperature = $crop_data['min_temperature'];
+                          $temperature = $farm_condition['temperature_max'];
+                          $temperature_status = ($temperature >= $min_temperature && $temperature <= $max_temperature) ? 'good' : 'Higher Temperature';
+
+                          $crop_status = ($ph_status == 'good' && $nutrient_status == 'good' && $organic_matter_status == 'good' && $soil_moisture_status == 'good' && $soil_temp_status == 'good' && $precipitation_status == 'good' && $temperature_status == 'good') ? 'Healthy' : 'Unhealthy';
+
                           ?>
                           <table class="table text-sm mb-0">
                             <thead>
@@ -392,36 +463,67 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
                               <tr>
                                 <th scope="row">1</th>
                                 <td>Soil moisture</td>
-                                <td><?php echo $moisture ?></td>
-                                <td><?php echo $available_moisture ?></td>
-                                <td><?php echo $moisture_status ?></td>
+                                <td><?php echo $min_soil_moisture ?></td>
+                                <td><?php echo $soil_moisture ?></td>
+                                <td><?php echo $soil_moisture_status ?></td>
                               </tr>
                               <tr>
                                 <th scope="row">2</th>
                                 <td>Soil Temperature</td>
                                 <td><?php echo $temperature ?></td>
-                                <td><?php echo $available_temperature ?></td>
+                                <td><?php echo $max_temperature ?></td>
                                 <td><?php echo $temperature_status ?></td>
                               </tr>
                               <tr>
                                 <th colspan="5">Soil Adjustment Suggestions</th>
                               </tr>
                               <tr>
-                                <td colspan="4"><?php echo soilManagementSuggestions($crop['name'], $available_moisture, $available_temperature); ?></td>
+                                <td colspan="5">
+                                  <?php echo soilManagementSuggestions($crop['name'], $soil_moisture, $max_temperature); ?>
+                                </td>
                               </tr>
                             </tbody>
                           </table>
+
+
+
+                          <div class="col-sm-12 mt-5">
+                            <h3 class="h4 text-dark text-uppercase fw-normal">Crop Growth</h3>
+                            <?php
+                            $crop_stage = $conn->query("SELECT * FROM crop_stages WHERE crop_id = " . $crop['id']);
+                            ?>
+                            <table class="table text-sm mb-0">
+                              <thead>
+                                <tr>
+                                  <th>TimeFrame (weeks)</th>
+                                  <th>Observable Changes</th>
+                                  <th>Possible Issues</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <?php foreach ($crop_stage as $key => $crop_stage) { ?>
+                                  <tr>
+                                    <td><?php echo $crop_stage['expected_week'] ?></td>
+                                    <td><?php echo $crop_stage['observable_changes'] ?></td>
+                                    <td><?php echo $crop_stage['possible_issues'] ?></td>
+                                  </tr>
+                                <?php } ?>
+                              </tbody>
+                            </table>
+                            <div>
+
+
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                <?php } ?>
+                <!-- end crop in farm -->
                 </div>
               </div>
             <?php } ?>
-            <!-- end crop in farm -->
-          </div>
-        </div>
-      <?php } ?>
     </section>
 
   </div>
