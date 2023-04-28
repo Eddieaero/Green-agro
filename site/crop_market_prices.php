@@ -278,6 +278,7 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
                                         <th>Market</th>
                                         <th>Unit</th>
                                         <th>Price</th>
+                                        <th>Price Type</th>
                                         <th>Date</th>
                                     </tr>
                                 </thead>
@@ -292,6 +293,7 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
                                             <td><?php echo $price['market'] ?></td>
                                             <td><?php echo $price['unit'] ?></td>
                                             <td><?php echo $price['price'] ?></td>
+                                            <td><?php echo $price['pricetype'] ?></td>
                                             <td><?php echo $price['date'] ?></td>
                                         </tr>
 
@@ -307,30 +309,201 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
                             <div class="col-12 bg-light rounded">
                                 <div class="row">
                                     <div class="col">
-                                        <select name="zero" id="ProductName" class="form-control">
+                                        <select name="zero" id="marketSelect" class="form-control">
                                             <option value="0">Market Name</option>
                                             <?php
                                             $markets = $conn->query("select distinct market from market_data");
-                                            while($market = $markets->fetch_assoc()){
+                                            while ($market = $markets->fetch_assoc()) {
                                             ?>
-                                            <option value=" <?php echo $market['market'] ?> "> <?php echo $market['market'] ?> </option>
+                                                <option value=" <?php echo $market['market'] ?> "> <?php echo $market['market'] ?> </option>
                                             <?php } ?>
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <select name="zero" id="ProductName" class="form-control">
+                                        <select name="zero" id="productSelect" class="form-control card">
                                             <option value="0">Product Name</option>
                                             <option value="Rice">Rice</option>
-                                            <option value="Rice">Maize</option>
-                                            <option value="Rice">Beans</option>
+                                            <option value="Maize">Maize</option>
+                                            <option value="Beans">Beans</option>
                                         </select>
                                     </div>
 
-                                    <div class="col-12 p-1"></div>
+                                    <script>
+                                        // Get the select input elements
+                                        var marketSelect = document.getElementById('marketSelect');
+                                        var productSelect = document.getElementById('productSelect');
+
+                                        // Listen for changes on the select inputs
+                                        marketSelect.addEventListener('change', redirectToPage);
+                                        productSelect.addEventListener('change', redirectToPage);
+
+                                        // Function to redirect to the page with updated URL parameters
+                                        function redirectToPage() {
+                                            // Get the current URL
+                                            var currentUrl = window.location.href;
+
+                                            // Get the selected values of the select inputs
+                                            var selectedMarket = marketSelect.value;
+                                            var selectedProduct = productSelect.value;
+
+                                            // Construct the new URL with updated parameters
+                                            var newUrl = currentUrl.split('?')[0] + '?market=' + selectedMarket + '&product=' + selectedProduct;
+
+                                            // Redirect to the new URL
+                                            window.location.href = newUrl;
+                                        }
+                                    </script>
+
+                                    <div class="col-12 p-1">
+                                        <div class="card">
+                                            <div class="card-body"><canvas id="trend_chart"></canvas></div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                                    <!-- pre process market data -->
+                                    <?php
+                                    // check if a specific market is set
+                                    if (isset($_GET['market']) && $_GET['market'] != 0) {
+                                        $m = $_GET['market'];
+
+                                        $sql = "SELECT DATE_FORMAT(date, '%M %Y') AS month_year, SUM(price) AS total_price FROM market_data WHERE market = '$m' GROUP BY YEAR(date), MONTH(date)";
+                                        // Execute query and get result
+                                        $result = $conn->query($sql);
+
+                                        // Initialize empty arrays for chart data
+                                        $labels = array();
+                                        $data = array();
+
+                                        // Loop through the query result and populate chart data arrays
+                                        while ($row = $result->fetch_assoc()) {
+                                            $labels[] = $row['month_year'];
+                                            $data[] = $row['total_price'];
+                                        }
+
+                                        // Create chart data object
+                                        $chart_data = array(
+                                            'labels' => $labels,
+                                            'datasets' => array(
+                                                array(
+                                                    'type' => 'line',
+                                                    'label' => $m,
+                                                    'data' => $data,
+                                                    'borderColor' => 'rgb(255, 99, 132)',
+                                                    'backgroundColor' => 'rgba(255, 99, 132, 0.2)'
+                                                )
+                                            )
+                                        );
+                                    } else if (isset($_GET['product']) && $_GET['product'] != 0) {
+                                        $p = $_GET['product'];
+                                        $query = "SELECT DATE_FORMAT(date, '%M %Y') AS month_year, SUM(price) AS total_price FROM market_data WHERE commodity = '$p' GROUP BY YEAR(date), MONTH(date)";
+
+                                        // Execute query and get result
+                                        $result = $conn->query($query);
+
+                                        // Initialize empty arrays for chart data
+                                        $labels = array();
+                                        $data = array();
+
+                                        // Loop through the query result and populate chart data arrays
+                                        while ($row = $result->fetch_assoc()) {
+                                            $labels[] = $row['month_year'];
+                                            $data[] = $row['total_price'];
+                                        }
+
+                                        // Create chart data object
+                                        $chart_data = array(
+                                            'labels' => $labels,
+                                            'datasets' => array(
+                                                array(
+                                                    'type' => 'line',
+                                                    'label' => $p.'Prices',
+                                                    'data' => $data,
+                                                    'borderColor' => 'rgb(255, 99, 132)',
+                                                    'backgroundColor' => 'rgba(255, 99, 132, 0.2)'
+                                                )
+                                            )
+                                        );
+                                    } else {
+                                        $query =  "SELECT date, commodity, SUM(price) AS total_price FROM market_data GROUP BY date, commodity ORDER BY date asc, commodity ASC";
+                                        // Query the database to get the dates and sum of product prices for each product
+                                        $result = $conn->query($query);
+
+                                        // Create arrays for the chart data
+                                        $labels = array();
+                                        $datasets = array();
+
+                                        // Keep track of the products we've already added as datasets
+                                        $added_products = array();
+
+                                        // Iterate over the query result and add the data to the chart arrays
+                                        while ($row = $result->fetch_assoc()) {
+                                            // Format the date as "Month Year"
+                                            $formatted_date = date("F Y", strtotime($row['date']));
+
+                                            // Add the date to the labels array if it hasn't been added yet
+                                            if (!in_array($formatted_date, $labels)) {
+                                                $labels[] = $formatted_date;
+                                            }
+
+                                            // Check if we've already added a dataset for this product
+                                            $product_key = $row['commodity'];
+                                            if (!array_key_exists($product_key, $added_products)) {
+                                                // Create a new dataset for this product
+                                                $new_dataset = array(
+                                                    "type" => "line",
+                                                    "label" => $row['commodity'],
+                                                    "data" => array(),
+                                                    "borderColor" => "rgb(255, " . rand(0, 255) . ", " . rand(0, 255) . ")", // Use a random color for the border
+                                                    "fill" => false
+                                                );
+
+                                                // Add the new dataset to the datasets array
+                                                $datasets[] = $new_dataset;
+
+                                                // Add the product to the list of added products
+                                                $added_products[$product_key] = count($datasets) - 1;
+                                            }
+
+                                            // Add the total price for this product on this date to the appropriate dataset
+                                            $dataset_index = $added_products[$product_key];
+                                            $datasets[$dataset_index]["data"][] = $row['total_price'];
+                                        }
+
+                                        // Prepare the chart data object
+                                        $chart_data = array(
+                                            "labels" => $labels,
+                                            "datasets" => $datasets
+                                        );
+                                    }
+
+                                    ?>
+                                    <!-- products from target market -->
+                                    <script>
+                                        const ctx = document.getElementById('trend_chart');
+
+                                        new Chart(ctx, {
+                                            type: 'bar',
+                                            data: <?php echo json_encode($chart_data); ?>,
+                                            options: {
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    </script>
+
                                 </div>
                             </div>
 
-                            <div class="col-12"> Pad</div>
+                            <div class="col-12">
+                                <iframe src="https://allafrica.com/list/aans/post/af/cat/agriculture/pubkey/publisher:editorial:00010656.html" frameborder="0" class="border-light rounded col-12" style="height: 300px" sandbox="allow-scripts"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -345,7 +518,6 @@ function soilManagementSuggestions($plantName, $soilMoisture, $soilTemperature)
     <script src="vendor/just-validate/js/just-validate.min.js"></script>
     <script src="vendor/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="vendor/overlayscrollbars/js/OverlayScrollbars.min.js"></script>
-    <script src="js/charts-home.js"></script>
     <!-- Main File-->
     <script src="js/front.js"></script>
     <script>
