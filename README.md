@@ -1,5 +1,5 @@
 # Green-Agro
-### The Solution that will solve the SDG 13 in a more smart way while leveraging nature and available resources to reducing the Carbon (greenhouse) emission gas by 30%
+### The Solution that will solve multiple Agriculture problems in  smart way while leveraging available open source data hubs to deliver this product 
 
 
 ## Features
@@ -8,6 +8,9 @@
 - Fertilizer recommendations based on soil test results.
 - Slideshow with tips for managing soil health.
 - User authentication and authorization.
+- land prospecting
+- in market crop price trends
+
 
 ## Technologies Used
 
@@ -41,6 +44,18 @@ cd site
 php -S localhost:8000
 ```
 
+## Important
+All dynamic values that automatically change are there on purpose to show the system will react to changes is environment.
+
+## Data sources
+1. iSDA 
+- used to collect soils data. from their open API product
+
+2. World Food Program
+- Data collected from HCX Datasets for crop prices from 2006 up to 2023
+
+3. All Africa online magazine
+- For up to date Tanzania local Agricultural News
 
 ## License
 
