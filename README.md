@@ -45,7 +45,7 @@ php -S localhost:8000
 ```
 
 ## Important
-All dynamic values that automatically change are there on purpose to show the system will react to changes is environment.
+All dynamic values that automatically change are there on purpose to show how the system will react to changes in environment.
 
 ## Data sources
 1. iSDA 
